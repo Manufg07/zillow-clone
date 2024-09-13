@@ -4,10 +4,14 @@ import Navigation from "./components/Navigation";
 import Search from "./components/Search";
 import Home from "./components/Home";
 
-function App({ account, homes, home, toggle, togglePop }) {
+function App({ homes, home, toggle, togglePop }) {
+  // State to manage the connected MetaMask account
+  const [account, setAccount] = useState(null);
+
   return (
     <div>
-      <Navigation account={account} />
+      {/* Pass both account and setAccount to Navigation */}
+      <Navigation account={account} setAccount={setAccount} />
       <Search />
 
       <div className="cards__section">

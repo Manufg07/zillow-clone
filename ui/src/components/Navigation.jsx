@@ -7,11 +7,15 @@ const Navigation = ({ account, setAccount }) => {
   // Function to connect to MetaMask
   const connectHandler = async () => {
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = ethers.utils.getAddress(accounts[0]);
-      setAccount(account); // Set the account state
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = ethers.utils.getAddress(accounts[0]);
+        setAccount(account); // Set the account state
+      } else {
+        alert("MetaMask is not installed.");
+      }
     } catch (error) {
       console.error("Error connecting to MetaMask", error);
     }
@@ -73,7 +77,7 @@ const Navigation = ({ account, setAccount }) => {
         </motion.h1>
       </motion.div>
 
-      {/* Connect Wallet Button */}
+      {/* Connect Wallet Button or Account Address */}
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -81,14 +85,12 @@ const Navigation = ({ account, setAccount }) => {
         className="flex justify-center"
       >
         {account ? (
-          <button
-            type="button"
-            className="w-44 h-12 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition duration-300"
-          >
-            {/* Show a short version of the connected address */}
+          // Display connected account address
+          <div className="w-44 h-12 bg-purple-600 text-white font-semibold rounded-lg flex items-center justify-center transition duration-300">
             {account.slice(0, 6) + "..." + account.slice(-4)}
-          </button>
+          </div>
         ) : (
+          // Display connect button when no account is connected
           <button
             type="button"
             className="w-44 h-12 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition duration-300"
