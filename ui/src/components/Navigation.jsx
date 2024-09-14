@@ -4,10 +4,14 @@ import { motion } from "framer-motion";
 import logo from "../assets/logo.svg";
 
 const Navigation = ({ account, setAccount }) => {
+  // State to manage loading status for the button
+  const [loading, setLoading] = useState(false);
+
   // Function to connect to MetaMask
   const connectHandler = async () => {
     try {
       if (window.ethereum) {
+        setLoading(true); // Start loading
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
@@ -18,6 +22,8 @@ const Navigation = ({ account, setAccount }) => {
       }
     } catch (error) {
       console.error("Error connecting to MetaMask", error);
+    } finally {
+      setLoading(false); // Stop loading after connection attempt
     }
   };
 
@@ -95,8 +101,9 @@ const Navigation = ({ account, setAccount }) => {
             type="button"
             className="w-44 h-12 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition duration-300"
             onClick={connectHandler}
+            disabled={loading} // Disable button while loading
           >
-            Connect
+            {loading ? "Connecting..." : "Connect"}
           </button>
         )}
       </motion.div>

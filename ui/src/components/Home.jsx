@@ -1,7 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
 
-const Home = () => {
+const Home = ({ home, account, escrowContract, buyHandler }) => {
   return (
     <motion.div
       className="bg-white rounded-lg shadow-lg p-6 relative"
@@ -35,79 +34,22 @@ const Home = () => {
             {home.attributes[0].value} ETH
           </h2>
 
-          {/* Owner or Action Buttons */}
-          {owner ? (
-            <div className="text-sm text-green-600 mb-6">
-              Owned by {owner.slice(0, 6) + "..." + owner.slice(38, 42)}
-            </div>
-          ) : (
-            <div>
-              {account === inspector ? (
-                <motion.button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-4"
-                  onClick={inspectHandler}
-                  disabled={hasInspected}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Approve Inspection
-                </motion.button>
-              ) : account === lender ? (
-                <motion.button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4"
-                  onClick={lendHandler}
-                  disabled={hasLended}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Approve & Lend
-                </motion.button>
-              ) : account === seller ? (
-                <motion.button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mb-4"
-                  onClick={sellHandler}
-                  disabled={hasSold}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Approve & Sell
-                </motion.button>
-              ) : (
-                <motion.button
-                  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full mb-4"
-                  onClick={buyHandler}
-                  disabled={hasBought}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Buy
-                </motion.button>
-              )}
+          {/* Buy Button */}
+          <motion.button
+            className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full mb-4"
+            onClick={() => buyHandler(home.id, home.attributes[0].value)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Buy
+          </motion.button>
 
-              <motion.button
-                className="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded-full"
-                whileHover={{ scale: 1.05 }}
-              >
-                Contact agent
-              </motion.button>
-            </div>
-          )}
-
-          <hr className="my-4 border-t-2 border-gray-200" />
-          <h2 className="text-xl font-bold mb-4">Overview</h2>
-          <p className="text-gray-600">{home.description}</p>
-
-          <hr className="my-4 border-t-2 border-gray-200" />
-          <h2 className="text-xl font-bold mb-4">Facts and features</h2>
-
-          {/* Facts and Features List */}
-          <ul className="list-disc list-inside">
-            {home.attributes.map((attribute, index) => (
-              <li key={index} className="text-gray-600 mb-2">
-                <strong>{attribute.trait_type}</strong> : {attribute.value}
-              </li>
-            ))}
-          </ul>
+          <motion.button
+            className="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded-full"
+            whileHover={{ scale: 1.05 }}
+          >
+            Contact agent
+          </motion.button>
         </div>
       </div>
 
@@ -118,11 +60,7 @@ const Home = () => {
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
       >
-        <img
-          src={close}
-          alt="Close"
-          className="h-6 w-6 cursor-pointer hover:opacity-75"
-        />
+        <img src="/path/to/close-icon.png" alt="Close" className="h-6 w-6" />
       </motion.button>
     </motion.div>
   );
