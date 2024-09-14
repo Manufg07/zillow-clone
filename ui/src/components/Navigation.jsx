@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState  } from "react";
 import { ethers } from "ethers";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.svg";

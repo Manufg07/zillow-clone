@@ -9,7 +9,11 @@ module.exports = {
       url: "http://127.0.0.1:8545/",
     },
     sepolia: {
-      url: "https://sepolia.infura.io/v3/aa5dac7082944ce89be0e5b4e458b14c",
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+      accounts: [process.env.private_key],
+    },
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
       accounts: [process.env.private_key],
     },
   },

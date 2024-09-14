@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import RealEstateABI from "./abis/RealEstate.json"; // Replace with the correct path to your RealEstate ABI
 import EscrowABI from "./abis/Escrow.json"; // Replace with the correct path to your Escrow ABI
 
-function App({ homes, home, toggle, togglePop }) {
+function App({ homes=[], home, toggle, togglePop }) {
   // State to manage the connected MetaMask account
   const [account, setAccount] = useState(null);
   const [realEstateContract, setRealEstateContract] = useState(null);
@@ -45,8 +45,8 @@ function App({ homes, home, toggle, togglePop }) {
           alert("Please connect your MetaMask wallet.");
         }
 
-        const realEstateAddress = "0xYourRealEstateContractAddress";
-        const escrowAddress = "0xYourEscrowContractAddress";
+        const realEstateAddress = "0x7803e39f9B1a5A7D85F3Ab7d1EE39bE08fF2e4FB";
+        const escrowAddress = "0x7c888a592c77387ED0f6c033A74E68592cFAE794";
 
         // Loading smart contracts
         const realEstate = new ethers.Contract(
